@@ -1,0 +1,54 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <!-- Bouton de retour en haut à gauche -->
+  <button class="btn btn-outline-secondary back-button" (click)="goBack()">
+    <i class="bi bi-arrow-left"></i> Retour
+  </button>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded text-center card-hover">
+        <div class="card-body">
+          <i class="bi bi-book-fill icon"></i>
+          <h5 class="card-title">Générer les Formations</h5>
+          <p class="card-text">Créez et gérez facilement vos formations pour les employés.</p>
+          <button class="btn btn-primary" (click)="goToFormations()">Accéder</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded text-center card-hover">
+        <div class="card-body">
+          <i class="bi bi-building icon"></i>
+          <h5 class="card-title">Générer les Entreprises</h5>
+          <p class="card-text">Ajoutez de nouvelles entreprises et assignez des formations.</p>
+          <button class="btn btn-success" (click)="toggleEntrepriseForm()">Accéder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Formulaire d'ajout d'entreprise sous forme de carte -->
+<div *ngIf="showTable" class="overlay">
+  <div class="entreprise-card">
+    <button class="close-btn" (click)="toggleEntrepriseForm()">❌</button>
+    <h3 class="text-center">Ajouter une entreprise</h3>
+    
+    <!-- Rond pour ajouter une image -->
+    <div class="logo-container" (click)="uploadImage()">
+      <img *ngIf="entrepriseLogo" [src]="entrepriseLogo" alt="Logo" class="logo-preview">
+      <span *ngIf="!entrepriseLogo" class="add-icon">+</span>
+    </div>
+
+    <input type="file" #fileInput hidden (change)="onFileSelected($event)">
+    
+    <div class="form-group">
+      <input type="text" [(ngModel)]="entrepriseNom" class="form-control" placeholder="Nom de l'entreprise">
+    </div>
+    
+    <div class="form-group">
+      <input type="text" [(ngModel)]="entrepriseSecteur" class="form-control" placeholder="Secteur d'activité">
+    </div>
+
+    <button class="btn btn-primary" (click)="addEntreprise()">Enregistrer</button>
+  </div>
+</div>

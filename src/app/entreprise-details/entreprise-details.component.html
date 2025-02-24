@@ -1,0 +1,129 @@
+<button class="btn btn-outline-secondary back-button position-fixed top-0 start-0 m-3" (click)="goBack()">
+  <i class="bi bi-arrow-left"></i> Retour
+</button>
+
+<div class="container mt-4">
+  <div class="row">
+    <!-- Formulaire d'ajout à gauche -->
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+          <h5>Ajouter un employé</h5>
+        </div>
+        <div class="card-body text-center">
+          <!-- Image de profil -->
+          <label for="imageUpload" class="position-relative d-inline-block">
+            <div
+              class="rounded-circle bg-secondary d-flex align-items-center justify-content-center"
+              style="width: 100px; height: 100px; cursor: pointer; overflow: hidden;"
+            >
+              <span *ngIf="!previewImage" class="text-white fs-4">+</span>
+              <img
+                *ngIf="previewImage"
+                [src]="previewImage"
+                alt="Photo de profil"
+                class="rounded-circle w-100 h-100"
+                style="object-fit: cover;"
+              />
+            </div>
+            <input type="file" id="imageUpload" accept="image/*" (change)="onFileSelected($event)" hidden />
+          </label>
+          <small class="d-block text-muted mt-2">Cliquez pour ajouter une photo</small>
+
+          <!-- Formulaire d'ajout -->
+          <form (ngSubmit)="onSubmit($event)">
+            <div class="mb-3 mt-3">
+              <input
+                type="text"
+                [ngModelOptions]="{ standalone: true }"
+                class="form-control"
+                [(ngModel)]="newNom"
+                placeholder="Nom complet"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="email"
+                [ngModelOptions]="{ standalone: true }"
+                class="form-control"
+                [(ngModel)]="newEmail"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="text"
+                [ngModelOptions]="{ standalone: true }"
+                class="form-control"
+                [(ngModel)]="newRole"
+                placeholder="Ex: Manager"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="password"
+                [ngModelOptions]="{ standalone: true }"
+                class="form-control"
+                [(ngModel)]="newPassword"
+                placeholder="Mot de passe"
+                required
+              />
+            </div>
+            <!-- Le bouton submit déclenchera l'événement ngSubmit -->
+            <button type="submit" class="btn btn-success w-100">
+              Ajouter l'employé
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Liste des employés à droite -->
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white text-center">
+          <h5>Employés ({{ employesCount$ | async }})</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Photo</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employe of employes$ | async">
+                <td>
+                  <img
+                    [src]="employe.photoUrl || 'assets/default-avatar.png'"
+                    class="rounded-circle"
+                    alt="Avatar"
+                    width="40"
+                    height="40"
+                    style="object-fit: cover;"
+                  />
+                </td>
+                <td>{{ employe.nom }}</td>
+                <td>{{ employe.email }}</td>
+                <td>{{ employe.role }}</td>
+                <td>
+                  <button class="btn btn-danger btn-sm" (click)="deleteEmploye(employe.id, employe.uid)">
+                    ❌ Supprimer
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="(employes$ | async)?.length === 0" class="text-center text-muted">Aucun employé enregistré.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

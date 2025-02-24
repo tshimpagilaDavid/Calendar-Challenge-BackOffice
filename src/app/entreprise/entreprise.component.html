@@ -1,0 +1,53 @@
+<div class="container py-4">
+  <!-- Bouton retour -->
+  <button class="btn btn-outline-secondary back-button mb-3" (click)="goBack()">
+    <i class="bi bi-arrow-left"></i> Retour
+  </button>
+  
+  <!-- Header avec titre -->
+  <div class="d-flex justify-content-center align-items-center mb-4 animate__animated animate__fadeInLeft">
+    <h1 class="m-0 text-center">Liste des entreprises</h1>
+  </div>
+  
+  <!-- Loader personnalisé -->
+  <div *ngIf="isLoading" class="d-flex flex-column justify-content-center align-items-center vh-100">
+    <img src="assets/logo.jpg" alt="Logo" class="loader-image mb-4 animate__animated animate__pulse" style="width: 170px; height: auto;" />
+    <div class="spinner-border text-primary animate__animated animate__rotateIn" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Liste des entreprises -->
+  <div *ngIf="!isLoading" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div *ngFor="let entreprise of entreprises$ | async" class="col animate__animated animate__fadeInUp">
+      <div class="card entreprise-card h-100 shadow-sm" (click)="selectEntreprise(entreprise)">
+        <div class="card-body text-center">
+          <div class="logo-container mx-auto mb-3">
+            <img [src]="entreprise.logo || 'assets/default-logo.png'" alt="Logo entreprise" class="img-fluid">
+          </div>
+          <h2 class="card-title">{{ entreprise.nom }}</h2>
+          <p class="card-text">{{ entreprise.secteur }}</p>
+          <p class="card-text">👥 {{ entreprise.employesCount }} employés</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+
+  .entreprise-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .entreprise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+</style>
