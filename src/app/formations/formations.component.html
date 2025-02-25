@@ -1,0 +1,35 @@
+<div class="container py-4">
+  <!-- Bouton retour -->
+  <button class="btn btn-outline-secondary back-button mb-3" (click)="goBack()">
+    <i class="bi bi-arrow-left"></i> Retour
+  </button>
+
+  <!-- Header avec titre -->
+  <div class="d-flex justify-content-center align-items-center mb-4 animate__animated animate__fadeInLeft">
+    <h1 class="m-0 text-center">Liste des formations</h1>
+  </div>
+
+  <!-- Loader personnalisé -->
+  <div *ngIf="isLoading" class="d-flex flex-column justify-content-center align-items-center vh-100">
+    <img src="assets/logo.jpg" alt="Logo" class="loader-image mb-4 animate__animated animate__pulse" style="width: 170px; height: auto;" />
+    <div class="spinner-border text-primary animate__animated animate__rotateIn" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Liste des formations -->
+  <div *ngIf="!isLoading" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div *ngFor="let formation of formations" class="col animate__animated animate__fadeInUp">
+      <div class="card formation-card h-100 shadow-sm" (click)="selectFormation(formation)">
+        <div class="card-body text-center">
+          <div class="logo-container mx-auto mb-3">
+            <img [src]="formation.imageUrl || 'assets/default-logo.png'" alt="Logo formation" class="img-fluid">
+          </div>
+          <h2 class="card-title">{{ formation.nom }}</h2>
+          <p class="card-text">{{ formation.description }}</p>
+          <p class="card-text">⏱️ {{ formation.duree }} minutes</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

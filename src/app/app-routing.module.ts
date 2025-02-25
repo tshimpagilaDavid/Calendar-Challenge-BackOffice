@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { ProfilComponent } from './profil/profil.component';
 import { CreateComponent } from './create/create.component';
 import { FormationComponent } from './formation/formation.component';
+import { FormationListComponent } from './formations/formations.component';
+import { FormationDetailComponent } from './formation-details/formation-details.component';
 import { EntrepriseComponent } from './entreprise/entreprise.component';
 import { EntrepriseDetailsComponent } from './entreprise-details/entreprise-details.component';
 
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'create', component: CreateComponent }, // Route pour la page "À propos"
   { path: 'profil', component: ProfilComponent }, // Route pour la page "À propos"
   { path: 'formation', component: FormationComponent }, // Route pour la page "À propos"
+  { path: 'formations', component: FormationListComponent }, // Route pour la page "À propos"
+  { path: 'formation/:id', component: FormationDetailComponent }, // Route pour la page "À propos"
   { path: 'entreprise', component: EntrepriseComponent }, // Route pour la page "À propos"
   { path: 'entreprise/:id', component: EntrepriseDetailsComponent }, // Route pour la page "À propos"
   { path: '**', redirectTo: '' } // Redirection pour les routes inconnues

@@ -21,6 +21,8 @@ import { EntrepriseDetailsComponent } from './entreprise-details/entreprise-deta
 import { ProfilComponent } from './profil/profil.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormationComponent } from './formation/formation.component';
+import { FormationListComponent } from './formations/formations.component';
+import { FormationDetailComponent } from './formation-details/formation-details.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { FormationComponent } from './formation/formation.component';
     EntrepriseComponent,
     EntrepriseDetailsComponent,
     ProfilComponent,
-    FormationComponent
+    FormationComponent,
+    FormationListComponent,
+    FormationDetailComponent
   ],
   imports: [
     MatSnackBarModule,
